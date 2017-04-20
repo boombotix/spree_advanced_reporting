@@ -37,7 +37,7 @@ class Spree::AdvancedReport::DailyDetailsReport < Spree::AdvancedReport::Increme
     adjustment_ids = orders.collect(&:adjustments).flatten.collect(&:id)
     tax_adjustments = Spree::Adjustment.tax.where(id: adjustment_ids)
     price_adjustments = Spree::Adjustment.price.where(id: adjustment_ids)
-    other_adjustments = Spree::Adjustment.where(id: adjustment_ids) - tax_adjustments - price_adjustments - shipments.collect(&:adjustment)
+    other_adjustments = Spree::Adjustment.where(id: adjustment_ids) - tax_adjustments - price_adjustments - shipments.collect(&:adjustments)
 
 #    adjustments = orders.collect(&:adjustments).flatten.select{|a| a.source_type != 'Spree::Shipment'}
 

@@ -20,7 +20,7 @@
   This report contains credit card payments that were captured on this date.
 </p>
 
-<table>
+<table class="table">
   <tr>
     <th>SKU</th>
     <th>Item</th>
@@ -90,7 +90,7 @@
 
   <% if @report.payments.present? %>
     <a href='#' data-details='payment_details'>Show details...</a>
-    <table>
+    <table class="table">
       <tr>
         <th>Card Type</th>
         <th>Quantity</th>
@@ -115,7 +115,7 @@
       </tr>
     </table>
 
-    <table class='details' id='payment_details'>
+    <table class='table' id='payment_details'>
       <tr>
         <th>Order</th>
         <th>Payment</th>
@@ -145,7 +145,7 @@
   <div id='orders'>
     <h2><%= pluralize(@report.orders.count, 'Order') %></h2>
     <a href='#' data-details='orders_details'>Show details...</a>
-    <table class='details' id='orders_details'>
+    <table class='table' id='orders_details'>
       <tr>
         <th>ID</th>
         <th>Item Count</th>
@@ -156,7 +156,7 @@
       </tr>
       <% @report.orders.sort{|a,b| a.created_at <=> b.created_at}.each do |order| %>
         <tr>
-          <td><%= link_to order.number, admin_order_shipments_path(order) %></td>
+          <td><%= link_to order.number, edit_admin_order_path(order) %></td>
           <td class='count'><%= order.line_items.count %></td>
           <td class='amount'><%= number_to_currency order.item_total %></td>
           <td class='amount'><%= number_to_currency order.ship_total %></td>
@@ -173,7 +173,7 @@
     <h2><%= pluralize(@report.shipments.count, 'Shipment') %></h2>
 
     <a href='#' data-details='shipments_details'>Show details...</a>
-    <table class='details' id='shipments_details'>
+    <table class='table' id='shipments_details'>
       <tr>
         <th>Order</th>
         <th>Shipment</th>
@@ -184,7 +184,7 @@
       <% @report.shipments.sort{|a,b| a.created_at <=> b.created_at}.each do |shipment| %>
         <tr>
           <td><%= link_to shipment.order.number, admin_order_path(shipment.order) %></td>
-          <td><%= link_to shipment.number, admin_order_shipments_path(shipment.order) %></td>
+          <td><%= link_to shipment.number, edit_admin_order_path(shipment.order) %></td>
           <td class='count'><%= shipment.line_items.count %></td>
           <td class='amount'><%= number_to_currency shipment.cost %></td>
         </tr>
@@ -198,7 +198,7 @@
     <h2><%= pluralize(@report.tax_adjustments.count, 'Tax Adjustment') %></h2>
 
     <a href='#' data-details='tax_adjustments_details'>Show details...</a>
-    <table class='details' id='tax_adjustments_details'>
+    <table class='table' id='tax_adjustments_details'>
       <tr>
         <th>Order</th>
         <th>Adjustment</th>
@@ -208,7 +208,7 @@
       <% @report.tax_adjustments.sort{|a,b| a.created_at <=> b.created_at}.each do |adjustment| %>
         <tr>
           <td><%= link_to adjustment.adjustable.number, admin_order_path(adjustment.adjustable) %></td>
-          <td><%= link_to "#{adjustment.label}", admin_order_shipments_path(adjustment.adjustable) %></td>
+          <td><%= link_to "#{adjustment.label}", edit_admin_order_path(adjustment.adjustable) %></td>
           <td class='amount'><%= number_to_currency adjustment.amount %></td>
         </tr>
       <% end %>
@@ -221,7 +221,7 @@
     <h2><%= pluralize(@report.price_adjustments.count, 'Price Adjustment') %></h2>
 
     <a href='#' data-details='price_adjustments_details'>Show details...</a>
-    <table class='details' id='price_adjustments_details'>
+    <table class='table' id='price_adjustments_details'>
       <tr>
         <th>Order</th>
         <th>Adjustment</th>
@@ -231,7 +231,7 @@
       <% @report.price_adjustments.sort{|a,b| a.created_at <=> b.created_at}.each do |adjustment| %>
         <tr>
           <td><%= link_to adjustment.adjustable.number, admin_order_path(adjustment.adjustable) %></td>
-          <td><%= link_to "#{adjustment.label}", admin_order_shipments_path(adjustment.adjustable) %></td>
+          <td><%= link_to "#{adjustment.label}", edit_admin_order_path(adjustment.adjustable) %></td>
           <td class='amount'><%= number_to_currency adjustment.amount %></td>
         </tr>
       <% end %>
@@ -244,7 +244,7 @@
     <h2><%= pluralize(@report.other_adjustments.count, 'Other Adjustment') %></h2>
 
     <a href='#' data-details='other_adjustments_details'>Show details...</a>
-    <table class='details' id='other_adjustments_details'>
+    <table class='table' id='other_adjustments_details'>
       <tr>
         <th>Order</th>
         <th>Adjustment</th>
@@ -254,7 +254,7 @@
       <% @report.other_adjustments.sort{|a,b| a.created_at <=> b.created_at}.each do |adjustment| %>
         <tr>
           <td><%= link_to adjustment.adjustable.number, admin_order_path(adjustment.adjustable) %></td>
-          <td><%= link_to "#{adjustment.label}", admin_order_shipments_path(adjustment.adjustable) %></td>
+          <td><%= link_to "#{adjustment.label}", edit_admin_order_path(adjustment.adjustable) %></td>
           <td class='amount'><%= number_to_currency adjustment.amount %></td>
         </tr>
       <% end %>

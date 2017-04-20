@@ -4,6 +4,9 @@ en:
     units: "Units"
     profit: "Profit"
     count: "Order Count"
+    subscriptions: "Subscriptions"
+    subscription_seats_in_use: "Subscription Seats In Use"
+    subscription_revenue: "Subscription Revenue"
     top_products: "Top Products"
     top_customers: "Top Customers"
     submit: "Submit"
@@ -12,3 +15,4 @@ en:
     geo_profit: "Geo Profit"
     sales_total: 'Sales Total'
     daily_details: 'Daily Sales Detail'
+    order_details: "Order Details"

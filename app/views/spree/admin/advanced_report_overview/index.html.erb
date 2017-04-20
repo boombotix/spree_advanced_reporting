@@ -1,4 +1,4 @@
-<table width="100%">
+<table class="table">
     <tr>
         <td colspan="3">
             <% @report.increments.each do |type| -%>
@@ -25,7 +25,7 @@
         <td width="33%">
             <h3><%=t("adv_report.last_10_orders")%></h3>
             <div id="recent_orders">
-                <table class="tablesorter">
+                <table class=" table tablesorter">
                     <thead><tr>
                             <th><%=t(:order_number)%></th>
                             <th><%=t(:order)%></th>
@@ -63,7 +63,8 @@
 <% end %>
 
 <% content_for :head do -%>
-    <script src="http://www.google.com/jsapi"></script>
+    <script src="https://www.google.com/jsapi"></script>
+
     <script >
         google.load('visualization', '1', {'packages': ['corechart']});
     </script>

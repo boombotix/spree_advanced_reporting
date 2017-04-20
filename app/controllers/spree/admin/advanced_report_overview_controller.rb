@@ -11,6 +11,11 @@ class Spree::Admin::AdvancedReportOverviewController < Spree::Admin::BaseControl
     @top_customers_report = Spree::AdvancedReport::TopReport::TopCustomers.new({ :search => {} }, 5)
     @top_customers_report.ruportdata.remove_column("Units")
 
+    @subscriptions = Spree::AccountSubscription.all
+    @subscription_seats = Spree::SubscriptionSeat.all
+
+    puts "ADVANCED REPORT!!!!!"
+
     # From overview_dashboard, Cleanup eventually
     orders = Spree::Order.find(:all, :order => "completed_at DESC", :limit => 10, :include => :line_items, :conditions => "completed_at is not null")
     @last_orders = orders.inject([]) { |arr, o| arr << [o.bill_address.firstname, o.line_items.sum(:quantity), o.total, o.number]; arr }

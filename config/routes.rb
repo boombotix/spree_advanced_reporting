@@ -1,24 +1,22 @@
-Spree::Core::Engine.routes.draw do
-  #namespace :admin do
-  #  resources :reports, :only => [:index, :show] do
-  #    collection do
-  #      get :sales_total
-  #    end
-  #  end
-  #end
-  match '/admin/reports/revenue' => 'admin/reports#revenue', :via => [:get, :post], :as => 'revenue_admin_reports'
-  match '/admin/reports/count'   => 'admin/reports#count',   :via => [:get, :post], :as => 'count_admin_reports'
-  match '/admin/reports/units'   => 'admin/reports#units',   :via => [:get, :post], :as => 'units_admin_reports'
-  match '/admin/reports/profit'  => 'admin/reports#profit',  :via => [:get, :post], :as => 'profit_admin_reports'
-
-  match '/admin/reports/top_customers' => 'admin/reports#top_customers', :via  => [:get, :post], :as => 'top_customers_admin_reports'
-  match '/admin/reports/top_products'  => 'admin/reports#top_products',  :via  => [:get, :post], :as => 'top_products_admin_reports'
-
-  match '/admin/reports/geo_revenue' => 'admin/reports#geo_revenue', :via => [:get, :post], :as => 'geo_revenue_admin_reports'
-  match '/admin/reports/geo_units'   => 'admin/reports#geo_units',   :via => [:get, :post], :as => 'geo_units_admin_reports'
-  match '/admin/reports/geo_profit'  => 'admin/reports#geo_profit',  :via => [:get, :post], :as => 'geo_profit_admin_reports'
-
-  match '/admin/reports/daily_details' => 'admin/reports#daily_details', :via  => [:get, :post], :as   => 'daily_details_admin_reports'
-
-  # match "/admin" => "admin/advanced_report_overview#index", :as => :admin
+Spree::Core::Engine.add_routes do
+  namespace :admin do
+    resources :reports, only: [] do
+      collection do
+        get :revenue
+        get :count
+        get :units
+        get :profit
+        get :subscriptions
+        get :subscription_seats_in_use
+        get :subscription_revenue
+        get :top_customers
+        get :top_products
+        get :geo_revenue
+        get :geo_units
+        get :geo_profit
+        get :daily_details
+        get :order_details
+      end
+    end
+  end
 end

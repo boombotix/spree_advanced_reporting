@@ -3,45 +3,46 @@
 <% end %>
 
 <% content_for :table_filter do %>
-<div id="advanced_report_search">
-  <%= form_for :search do |s| %>
-    <% if @stores %>
-        Store:<br /><%= collection_select(:search, :store_id, @stores, :id, :name, { :include_blank => 'All' } ) %><br />
+  <div id="advanced_report_search">
+    <%= form_for :search do |s| %>
+      <% if @stores %>
+          Store:<br /><%= collection_select(:search, :store_id, @stores, :id, :name, { :include_blank => 'All' } ) %><br />
+      <% end %>
+
+      <div id="taxon_products">
+      <% if @taxons %>
+        <%= t :taxons %>: <%= collection_select(:advanced_reporting, :taxon_id, @taxons, :id, :name, { :include_blank => 'All' }, { class: 'form-control' } ) %>
+      <% end %>
+      <%= t :products %>: <%= collection_select(:advanced_reporting, :product_id, @products, :id, :name, { :include_blank => 'All' }, { class: 'form-control' } ) %>
+      </div>
+
+      <div class="date-range-filter field align-center">
+        <div class="col-sm-6">
+          <%= label_tag nil, t(:start), class: 'inline' %>
+          <%= s.text_field :created_at_gt, class: 'datepicker datepicker-from form-control' %>
+        </div>
+
+        <div class="col-sm-6">
+          <%= label_tag nil, t(:end), class: 'inline' %>
+          <%= s.text_field :created_at_lt, class: 'datepicker datepicker-to form-control' %>
+        </div>
+      </div>
+
+      <div class="actions filter-actions">
+        <%= button Spree.t(:search), 'search'  %>
+      </div>
     <% end %>
-
-    <div id="taxon_products">
-    <% if @taxons %>
-        <%= t :taxons %>: <%= collection_select(:advanced_reporting, :taxon_id, @taxons, :id, :name, { :include_blank => 'All' } ) %>
-    <% end %>
-    <%= t :products %>: <%= collection_select(:advanced_reporting, :product_id, @products, :id, :name, { :include_blank => 'All' } ) %><br />
-    </div>
-
-    <div class="date-range-filter field align-center">
-        <%= label_tag nil, t(:start), :class => 'inline' %>
-        <%= s.text_field :created_at_gt, :class => 'datepicker datepicker-from' %>
-
-        <span class="range-divider">
-          <i class="icon-arrow-right"></i>
-        </span>
-
-        <%= s.text_field :created_at_lt, :class => 'datepicker datepicker-to' %>
-        <%= label_tag nil, t(:end), :class => 'inline' %>
-    </div>
-
-    <div class="actions filter-actions">
-      <%= button Spree.t(:search), 'icon-search'  %>
-    </div>
-  <% end %>
-</div>
+  </div>
 <% end %>
 
 <% content_for :head do %>
-<% #= javascript_include_tag 'admin/jquery.tablesorter.min.js', 'admin/advanced_reporting.js' %>
-<% #= stylesheet_link_tag 'admin/advanced_reporting' %>
-<script type="text/javascript">
-var completed_at_lt = "<%= (@report.unfiltered_params && @report.unfiltered_params[:completed_at_lt]) ? @report.unfiltered_params[:completed_at_lt] : '' %>";
-var completed_at_gt = "<%= (@report.unfiltered_params && @report.unfiltered_params[:completed_at_gt]) ? @report.unfiltered_params[:completed_at_gt] : '' %>";
-</script>
+  <script type="text/javascript">
+    var completed_at_lt = "<%= (@report.unfiltered_params && @report.unfiltered_params[:completed_at_lt]) ? @report.unfiltered_params[:completed_at_lt] : '' %>";
+    var completed_at_gt = "<%= (@report.unfiltered_params && @report.unfiltered_params[:completed_at_gt]) ? @report.unfiltered_params[:completed_at_gt] : '' %>";
+    $(function() {
+      $('#advanced_report_search form').attr('method', 'get');
+    });
+  </script>
 <% end %>
 
 <% if params[:advanced_reporting] %>
